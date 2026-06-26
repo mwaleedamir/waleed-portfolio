@@ -136,3 +136,19 @@ body {
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 56px 56px;
 }
+
+/* ------------------------------------------------------------------ */
+/*  Reduced motion                                                     */
+/*  Neutralize CSS-driven animation for users who ask for less motion. */
+/*  (framer-motion is handled separately via <MotionConfig>.)          */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

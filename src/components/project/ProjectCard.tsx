@@ -25,9 +25,9 @@ export function ProjectCard({
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
+      initial={{ opacity: 0, y: 40, x: flip ? 40 : -40 }}
+      whileInView={{ opacity: 1, y: 0, x: 0 }}
+      viewport={{ once: false, margin: "-80px" }}
       transition={{ duration: 0.55, ease: "easeOut" }}
       className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14"
     >

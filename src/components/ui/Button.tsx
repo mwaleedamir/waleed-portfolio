@@ -1,3 +1,4 @@
+import { motion, type HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 type Variant = "primary" | "secondary" | "ghost" | "outline";
@@ -19,14 +20,19 @@ const sizes: Record<Size, string> = {
   lg: "h-13 px-8 text-base",
 };
 
-interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+const baseClasses =
+  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:pointer-events-none disabled:opacity-50";
+
+// Subtle tactile feedback shared by every button/link.
+const motionProps = {
+  whileHover: { y: -2 },
+  whileTap: { scale: 0.97 },
+} as const;
+
+interface ButtonProps extends HTMLMotionProps<"button"> {
   variant?: Variant;
   size?: Size;
 }
-
-const baseClasses =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:pointer-events-none disabled:opacity-50";
 
 export function Button({
   variant = "primary",
@@ -35,15 +41,15 @@ export function Button({
   ...props
 }: ButtonProps) {
   return (
-    <button
+    <motion.button
+      {...motionProps}
       className={cn(baseClasses, variants[variant], sizes[size], className)}
       {...props}
     />
   );
 }
 
-interface LinkButtonProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+interface LinkButtonProps extends HTMLMotionProps<"a"> {
   variant?: Variant;
   size?: Size;
 }
@@ -56,7 +62,8 @@ export function LinkButton({
   ...props
 }: LinkButtonProps) {
   return (
-    <a
+    <motion.a
+      {...motionProps}
       className={cn(baseClasses, variants[variant], sizes[size], className)}
       {...props}
     />

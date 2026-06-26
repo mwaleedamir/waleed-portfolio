@@ -11,7 +11,7 @@ import type { NavLink, SocialLink, Stat } from "@/types";
  * Update the values here and they flow through the whole site.
  */
 export const profile = {
-  name: "Waleed Amir",
+  name: "Muhammad Waleed Amir",
   firstName: "Waleed",
   roles: ["Mobile App Developer", "Web Developer", "Full-Stack Engineer"],
   headline: "I build fast, beautiful apps for mobile & web.",
@@ -23,7 +23,7 @@ export const profile = {
   email: "waleedamir569@gmail.com",
   // Placeholder SVG ships with the project — drop in your real photo and
   // point this at "/profile/waleed.jpg".
-  avatar: "/profile/waleed.svg",
+  avatar: "/profile/waleed.jpeg",
   resumeUrl: "/waleed-amir-resume.pdf",
 } as const;
 
@@ -35,9 +35,9 @@ export const stats: Stat[] = [
 ];
 
 export const socials: SocialLink[] = [
-  { label: "GitHub", href: "https://github.com/", icon: GithubIcon },
-  { label: "LinkedIn", href: "https://linkedin.com/", icon: LinkedinIcon },
-  { label: "X", href: "https://x.com/", icon: XIcon },
+  { label: "GitHub", href: "https://github.com/mwaleedamir", icon: GithubIcon },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/muhammad-waleed-amir-6b5514246/", icon: LinkedinIcon },
+  { label: "X", href: "https://x.com/MWaleedAmir", icon: XIcon },
   { label: "Email", href: `mailto:${profile.email}`, icon: Mail },
 ];
 

@@ -6,6 +6,7 @@ import { ArrowRight, Download, MapPin } from "lucide-react";
 import { profile, socials, stats } from "@/data/profile";
 import { LinkButton } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { CountUp } from "@/components/ui/CountUp";
 
 export function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -132,7 +133,7 @@ export function Hero() {
           {stats.map((stat) => (
             <div key={stat.label} className="bg-surface px-4 py-6 text-center">
               <dd className="text-2xl font-bold text-gradient sm:text-3xl">
-                {stat.value}
+                <CountUp value={stat.value} />
               </dd>
               <dt className="mt-1 text-xs text-muted sm:text-sm">
                 {stat.label}

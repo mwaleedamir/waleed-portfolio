@@ -6,10 +6,12 @@ import { profile, socials } from "@/data/profile";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   resetForm,
+  setError,
   setStatus,
   updateField,
   type ContactForm,
 } from "@/store/slices/contactSlice";
+import { blurIn, slideLeft, viewportReplay } from "@/lib/animations";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
@@ -26,7 +28,7 @@ const projectTypes = [
 
 export function Contact() {
   const dispatch = useAppDispatch();
-  const { form, status } = useAppSelector((s) => s.contact);
+  const { form, status, error } = useAppSelector((s) => s.contact);
 
   const onChange =
     (field: keyof ContactForm) =>
@@ -39,17 +41,58 @@ export function Contact() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+    if (!accessKey) {
+      dispatch(
+        setError(
+          "Contact form isn't configured yet. Please email me directly for now."
+        )
+      );
+      return;
+    }
+
     dispatch(setStatus("submitting"));
 
-    // Demo: simulate an async send. Wire this to your email API / service.
-    await new Promise((r) => setTimeout(r, 1200));
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `New portfolio inquiry from ${form.name}`,
+          from_name: "Portfolio contact form",
+          replyto: form.email,
+          name: form.name,
+          email: form.email,
+          project_type: form.projectType,
+          message: form.message,
+        }),
+      });
 
-    dispatch(setStatus("success"));
-    setTimeout(() => dispatch(resetForm()), 4000);
+      const data = await res.json();
+
+      if (data.success) {
+        dispatch(setStatus("success"));
+        setTimeout(() => dispatch(resetForm()), 4000);
+      } else {
+        dispatch(
+          setError(data.message || "Something went wrong. Please try again.")
+        );
+      }
+    } catch {
+      dispatch(
+        setError("Network error. Please try again or email me directly.")
+      );
+    }
   };
 
   const submitting = status === "submitting";
   const success = status === "success";
+  const errored = status === "error";
 
   return (
     <Section id="contact" soft>
@@ -57,6 +100,7 @@ export function Contact() {
         {/* Left: pitch + contact info */}
         <div>
           <SectionHeading
+            anim={blurIn}
             align="left"
             eyebrow="Contact"
             title={
@@ -105,9 +149,10 @@ export function Contact() {
         {/* Right: form */}
         <motion.form
           onSubmit={onSubmit}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
+          variants={slideLeft}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportReplay}
           transition={{ duration: 0.5 }}
           className="rounded-2xl border border-border bg-surface p-6 sm:p-8"
         >
@@ -197,6 +242,15 @@ export function Contact() {
                   className={`${inputClasses} resize-none`}
                 />
               </div>
+
+              {errored && error && (
+                <p
+                  role="alert"
+                  className="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-400"
+                >
+                  {error}
+                </p>
+              )}
 
               <Button
                 type="submit"

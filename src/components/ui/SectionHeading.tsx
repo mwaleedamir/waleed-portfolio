@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
+import { fadeUp, viewportReplay } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
@@ -9,6 +10,8 @@ interface SectionHeadingProps {
   description?: string;
   align?: "left" | "center";
   className?: string;
+  /** Entrance animation preset — varies per section. Defaults to fadeUp. */
+  anim?: Variants;
 }
 
 /** Reusable, animated heading block used at the top of every section. */
@@ -18,12 +21,14 @@ export function SectionHeading({
   description,
   align = "center",
   className,
+  anim = fadeUp,
 }: SectionHeadingProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
+      variants={anim}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportReplay}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={cn(
         "max-w-2xl",

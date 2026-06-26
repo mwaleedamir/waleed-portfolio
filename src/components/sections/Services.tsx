@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { services } from "@/data/services";
+import { fadeUp, viewportReplay } from "@/lib/animations";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
@@ -24,9 +25,10 @@ export function Services() {
         {services.map(({ id, title, description, icon: Icon, features }, i) => (
           <motion.div
             key={id}
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportReplay}
             transition={{ duration: 0.45, delay: i * 0.08 }}
           >
             <Card interactive className="h-full">

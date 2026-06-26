@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import { profile } from "@/data/profile";
+import { slideLeft, slideRight, zoomIn, viewportReplay } from "@/lib/animations";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
@@ -18,6 +19,7 @@ export function About() {
   return (
     <Section id="about" soft>
       <SectionHeading
+        anim={slideRight}
         eyebrow="About me"
         title={
           <>
@@ -30,9 +32,10 @@ export function About() {
       <div className="mt-14 grid items-center gap-10 lg:grid-cols-5 lg:gap-14">
         {/* Portrait */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
+          variants={zoomIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportReplay}
           transition={{ duration: 0.5 }}
           className="lg:col-span-2"
         >
@@ -56,9 +59,10 @@ export function About() {
 
         {/* Bio */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          variants={slideLeft}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportReplay}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="lg:col-span-3"
         >

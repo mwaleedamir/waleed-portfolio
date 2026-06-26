@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -54,11 +55,22 @@ export function ThemeToggle({ className }: { className?: string }) {
         className
       )}
     >
-      {isDark ? (
-        <Moon className="h-[18px] w-[18px]" />
-      ) : (
-        <Sun className="h-[18px] w-[18px]" />
-      )}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={theme}
+          initial={{ rotate: -90, opacity: 0 }}
+          animate={{ rotate: 0, opacity: 1 }}
+          exit={{ rotate: 90, opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="grid place-items-center"
+        >
+          {isDark ? (
+            <Moon className="h-[18px] w-[18px]" />
+          ) : (
+            <Sun className="h-[18px] w-[18px]" />
+          )}
+        </motion.span>
+      </AnimatePresence>
     </button>
   );
 }

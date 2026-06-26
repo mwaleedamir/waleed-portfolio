@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Quote, Star } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
+import { flipIn, viewportReplay } from "@/lib/animations";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
@@ -11,6 +12,7 @@ export function Testimonials() {
   return (
     <Section id="testimonials">
       <SectionHeading
+        anim={flipIn}
         eyebrow="Testimonials"
         title={
           <>
@@ -24,10 +26,12 @@ export function Testimonials() {
         {testimonials.map((t, i) => (
           <motion.div
             key={t.id}
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.45, delay: i * 0.08 }}
+            variants={flipIn}
+            initial="hidden"
+            whileInView="visible"
+            whileHover={{ y: -4 }}
+            viewport={viewportReplay}
+            transition={{ duration: 0.5, delay: i * 0.08 }}
           >
             <Card className="relative h-full">
               <Quote className="absolute right-6 top-6 h-8 w-8 text-primary/15" />

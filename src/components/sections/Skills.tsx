@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { skillGroups, marqueeSkills } from "@/data/skills";
+import { zoomIn, viewportReplay } from "@/lib/animations";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
@@ -11,6 +12,7 @@ export function Skills() {
   return (
     <Section id="skills" soft>
       <SectionHeading
+        anim={zoomIn}
         eyebrow="Skills & Tech"
         title={
           <>
@@ -24,9 +26,11 @@ export function Skills() {
         {skillGroups.map((group, i) => (
           <motion.div
             key={group.category}
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            variants={zoomIn}
+            initial="hidden"
+            whileInView="visible"
+            whileHover={{ y: -4 }}
+            viewport={viewportReplay}
             transition={{ duration: 0.45, delay: i * 0.08 }}
           >
             <Card className="h-full">
