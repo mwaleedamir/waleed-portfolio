@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Waleed — Portfolio
 
-## Getting Started
+A professional, animated portfolio for showcasing mobile & web development work
+and converting visitors into clients. Built with **Next.js 16 (App Router)**,
+**TypeScript**, **Tailwind CSS v4**, **Redux Toolkit** and **Framer Motion**.
 
-First, run the development server:
+## Features
+
+- **Responsive video showcase** — mobile demos play in a realistic phone frame
+  (portrait), web demos in a browser frame (landscape).
+- **Redux-powered UI** — project filtering (All / Mobile / Web), mobile menu,
+  and the contact form are all driven by Redux Toolkit slices.
+- **Reusable component system** — `Button`, `Card`, `Badge`, `Section`,
+  `Container`, `SectionHeading`, `Reveal` and device frames.
+- **Sections** — Hero, About, Services, Work, Skills, Testimonials, Contact.
+- Smooth scroll-reveal animations, dark theme, glassmorphism, fully responsive.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # start dev server  → http://localhost:3000
+npm run build   # production build
+npm run start   # serve the production build
+npm run lint    # lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Make it yours (edit data, no component changes needed)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+All content lives in `src/data/` — update these and the whole site updates:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| File              | What it controls                                  |
+| ----------------- | ------------------------------------------------- |
+| `profile.ts`      | Name, roles, bio, stats, socials, nav links       |
+| `services.ts`     | Services you offer                                |
+| `skills.ts`       | Skill groups + the scrolling tech marquee         |
+| `projects.ts`     | Your projects + demo videos                       |
+| `testimonials.ts` | Client testimonials                               |
 
-## Learn More
+### Adding your videos
 
-To learn more about Next.js, take a look at the following resources:
+1. Drop video files into `public/videos/` — see `public/videos/README.md` for
+   sizing (mobile = 9:16 portrait, web = 16:9 landscape).
+2. Reference them in `src/data/projects.ts` and set `category` to `"mobile"`
+   or `"web"` — that decides the phone vs. browser frame automatically.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Your photo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Replace `public/profile/waleed.svg` with your photo (e.g. `waleed.jpg`) and
+update `avatar` in `src/data/profile.ts`.
 
-## Deploy on Vercel
+### Wiring up the contact form
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`src/components/sections/Contact.tsx` currently simulates submission. Connect it
+to your email provider (Resend, Formspree, an API route, etc.) where the
+`onSubmit` handler runs.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project structure
+
+```
+src/
+├─ app/                 # layout, page, global styles
+├─ components/
+│  ├─ ui/               # reusable primitives (Button, Card, …) + BrandIcons
+│  ├─ layout/           # Navbar, Footer
+│  ├─ project/          # DeviceFrame, VideoPlayer, ProjectCard
+│  └─ sections/         # Hero, About, Services, Projects, Skills, …
+├─ data/                # all editable content
+├─ store/               # Redux store, hooks, provider, slices
+├─ lib/                 # utils (cn)
+└─ types/               # shared TypeScript types
+```
+
+## Customizing the theme
+
+Design tokens (colors, fonts, animations) are defined as CSS variables in
+`src/app/globals.css` under the `@theme` block. Change `--color-primary` /
+`--color-accent` to re-brand the whole site instantly.
