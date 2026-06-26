@@ -1,26 +1,138 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ */
+/*  Design tokens                                                      */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Color tokens default to the DARK theme. The light theme overrides
+     these same CSS variables under `:root[data-theme="light"]` below, and
+     every Tailwind utility (bg-bg, text-foreground, …) reads the var, so
+     swapping the attribute swaps the whole palette. */
+  --color-bg: #0a0a0f;
+  --color-bg-soft: #101019;
+  --color-surface: #15151f;
+  --color-surface-2: #1c1c2a;
+  --color-border: #262633;
+
+  --color-foreground: #ededf2;
+  --color-muted: #a1a1b5;
+  --color-faint: #6c6c80;
+
+  --color-primary: #6d5efc;
+  --color-primary-soft: #8b7dff;
+  --color-accent: #2dd4bf;
+  --color-accent-soft: #5eead4;
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+
+  --radius-xl: 1.25rem;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-marquee: marquee 32s linear infinite;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Theme-aware helper variables (not Tailwind utilities)             */
+/*  These back the hand-tuned rgba() values used by glass/grid/etc.   */
+/* ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --glass-bg: rgba(21, 21, 31, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --selection-bg: rgba(109, 94, 252, 0.35);
+  --selection-fg: #ffffff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ------------------------------------------------------------------ */
+/*  Light theme overrides                                             */
+/* ------------------------------------------------------------------ */
+:root[data-theme="light"] {
+  --color-bg: #f7f7fb;
+  --color-bg-soft: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-2: #f0f0f6;
+  --color-border: #e3e3ed;
+
+  --color-foreground: #16161d;
+  --color-muted: #55556a;
+  --color-faint: #8a8a9c;
+
+  --color-primary: #5b4bf0;
+  --color-primary-soft: #6d5efc;
+  --color-accent: #0d9488;
+  --color-accent-soft: #14b8a6;
+
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --grid-line: rgba(0, 0, 0, 0.04);
+  --selection-bg: rgba(109, 94, 252, 0.25);
+  --selection-fg: #16161d;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+* {
+  border-color: var(--color-border);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-2);
+  border-radius: 999px;
+  border: 2px solid var(--color-bg);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-border); }
+
+/* ------------------------------------------------------------------ */
+/*  Custom utilities                                                   */
+/* ------------------------------------------------------------------ */
+@utility text-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--color-primary-soft),
+    var(--color-accent-soft)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+}
+
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
