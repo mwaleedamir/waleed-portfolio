@@ -24,13 +24,13 @@ export const profile = {
   // Placeholder SVG ships with the project — drop in your real photo and
   // point this at "/profile/waleed.jpg".
   avatar: "/profile/waleed.jpeg",
-  resumeUrl: "/waleed-amir-resume.pdf",
+  resumeUrl: "/CV_Muhammad_Waleed_Amir.pdf",
 } as const;
 
 export const stats: Stat[] = [
-  { label: "Projects Delivered", value: "40+" },
-  { label: "Happy Clients", value: "25+" },
-  { label: "Years Experience", value: "4+" },
+  { label: "Projects Delivered", value: "10+" },
+  { label: "Happy Clients", value: "5+" },
+  { label: "Years Experience", value: "3+" },
   { label: "Client Satisfaction", value: "100%" },
 ];
 

@@ -17,7 +17,15 @@ export interface Project {
   /** Optional poster image shown before the video plays. */
   poster?: string;
   tech: string[];
-  liveUrl?: string;
+  /** Mobile: direct .apk download. */
+  apkUrl?: string;
+  /** Mobile: Google Play listing. */
+  playStoreUrl?: string;
+  /** Mobile: Apple App Store listing. */
+  appStoreUrl?: string;
+  /** Live website / web app link (mainly for web projects). */
+  websiteUrl?: string;
+  /** Source code repository. */
   repoUrl?: string;
   featured?: boolean;
 }

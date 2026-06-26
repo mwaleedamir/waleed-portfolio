@@ -1,10 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { Download, Globe } from "lucide-react";
 import type { Project } from "@/types";
 import { Badge } from "@/components/ui/Badge";
-import { GithubIcon } from "@/components/ui/BrandIcons";
+import { LinkButton } from "@/components/ui/Button";
+import {
+  AppStoreIcon,
+  GithubIcon,
+  GooglePlayIcon,
+} from "@/components/ui/BrandIcons";
 import { BrowserFrame, PhoneFrame } from "./DeviceFrame";
 import { VideoPlayer } from "./VideoPlayer";
 
@@ -42,7 +47,7 @@ export function ProjectCard({
             <VideoPlayer src={project.video} poster={project.poster} />
           </PhoneFrame>
         ) : (
-          <BrowserFrame url={project.liveUrl ? "yoursite.com" : "demo.app"}>
+          <BrowserFrame url={project.websiteUrl ? "yoursite.com" : "demo.app"}>
             <VideoPlayer src={project.video} poster={project.poster} />
           </BrowserFrame>
         )}
@@ -69,15 +74,43 @@ export function ProjectCard({
           ))}
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
-          {project.liveUrl && (
+        <div className="mt-6 flex flex-wrap items-center gap-4">
+          {/* Primary action: download the APK (mobile apps). */}
+          {project.apkUrl && (
+            <LinkButton href={project.apkUrl} size="sm" download>
+              <Download className="h-4 w-4" /> Download APK
+            </LinkButton>
+          )}
+
+          {/* Optional store + website links — only render what's provided. */}
+          {project.playStoreUrl && (
             <a
-              href={project.liveUrl}
+              href={project.playStoreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-foreground"
+            >
+              <GooglePlayIcon className="h-4 w-4" /> Google Play
+            </a>
+          )}
+          {project.appStoreUrl && (
+            <a
+              href={project.appStoreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-foreground"
+            >
+              <AppStoreIcon className="h-4 w-4" /> App Store
+            </a>
+          )}
+          {project.websiteUrl && (
+            <a
+              href={project.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-primary-soft"
             >
-              <ExternalLink className="h-4 w-4" /> Live demo
+              <Globe className="h-4 w-4" /> {isMobile ? "Website" : "Visit website"}
             </a>
           )}
           {project.repoUrl && (
