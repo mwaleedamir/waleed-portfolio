@@ -19,9 +19,8 @@ export const projects: Project[] = [
     id: "fena",
     title: "Fena",
     category: "mobile",
-    tagline: "Fitness & workout tracker",
-    description:
-      "A React Native fitness app with custom workout plans, streak tracking and progress analytics, powered by a Node.js backend.",
+    tagline: "Menstrual cycle tracker",
+    description: "A React Native women's health app that tracks the menstrual cycle across its menstrual, follicular, ovulatory and luteal phases. Delivers cycle predictions and personalized insights",
     video: "/videos/fena.mp4",
     poster: "/posters/fena.jpeg",
     tech: ["React Native", "Node.js", "Express", "MongoDB"],
@@ -36,9 +35,9 @@ export const projects: Project[] = [
     id: "namaz-break",
     title: "Namaz Break",
     category: "mobile",
-    tagline: "Prayer times & reminders",
+    tagline: "Prayer times reminders & Prayer Lock",
     description:
-      "An Islamic prayer companion with accurate Namaz timings, reminders and Qibla direction. Built with React Native and Firebase.",
+      "An Islamic prayer companion with accurate Namaz timings, reminders and Qibla direction. Its standout feature is Prayer Lock, which locks the phone during prayer times to minimize distractions, as shown in the video",
     video: "/videos/namaz-break.mp4",
     poster: "/posters/namazbreakThumbnail.jpeg",
     tech: ["React Native", "Firebase"],
@@ -51,7 +50,7 @@ export const projects: Project[] = [
     category: "mobile",
     tagline: "2-minute self-care app",
     description:
-      "A wellbeing app offering quick two-minute mindfulness and self-care sessions with daily reminders and streaks. React Native front end with a Node.js API.",
+      "A wellbeing app offering quick two-minute mindfulness and self-care sessions with daily reminders and streaks.",
     video: "/videos/2min.mp4",
     tech: ["React Native", "Node.js", "Express", "MongoDB"],
     apkUrl: "/apks/2min.apk",
@@ -63,7 +62,7 @@ export const projects: Project[] = [
     category: "mobile",
     tagline: "Marketers and Producers",
     description:
-      "A platform for marketers and producers, week-by-week updates, backed by a Node.js API.",
+      "A platform for marketers and producers, week-by-week updates.",
     video: "/videos/pegnify.mp4",
     poster: "/posters/pegnify.jpeg",
     tech: ["React Native", "Node.js", "Express", "MongoDB"],
@@ -77,7 +76,7 @@ export const projects: Project[] = [
     category: "mobile",
     tagline: "Ev charging station finder",
     description:
-      "An Ev Charge app is to find Electric car charging stations in the way from one destination to another, with a Node.js backend.",
+      "An Ev Charge app is to find Electric car charging stations in the way from one destination to another.",
     video: "/videos/ev.mp4",
     poster: "/posters/ev.jpeg",
     tech: ["React Native", "Node.js", "Express", "MongoDB"],
