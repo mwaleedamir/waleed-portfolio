@@ -24,7 +24,7 @@ export const profile = {
   // Placeholder SVG ships with the project — drop in your real photo and
   // point this at "/profile/waleed.jpg".
   avatar: "/profile/waleed.jpeg",
-  resumeUrl: "/CV_Muhammad_Waleed_Amir.pdf",
+  resumeUrl: "/Muhammad_Waleed_Amir_CV.pdf",
 } as const;
 
 export const stats: Stat[] = [
